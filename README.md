@@ -30,6 +30,8 @@ const client = new ApolloClient({
 
 ### creating query example
 
+- mutation
+
 ```js
 import gql from "graphql-tag";
 
@@ -51,6 +53,8 @@ import { useMutation } from "@apollo/client";
 
 const [getToken] = useMutation(GET_TOKEN);
 const [createUser] = useMutation(CREATE_USER);
+
+//ex
 const authUser = async (e) => {
   e.preventDefault();
   if (isLogin) {
@@ -83,4 +87,34 @@ return (
     <form onSubmit={authUser}></form>
   </>
 );
+```
+
+- query
+
+```js
+export const GET_EMPLOYEES = gql`
+  query {
+    allEmployees {
+      edges {
+        node {
+          id
+          name
+          joinYear
+          department {
+            id
+            deptName
+          }
+        }
+      }
+    }
+  }
+`;
+
+//component
+import { useQuery } from "@apollo/react-hooks";
+const {
+  loading: loadingEmployees,
+  data: dataEmployees,
+  error: errorEmployees,
+} = useQuery(GET_EMPLOYEES);
 ```
