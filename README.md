@@ -118,3 +118,32 @@ const {
   error: errorEmployees,
 } = useQuery(GET_EMPLOYEES);
 ```
+
+- singlequery
+
+useLazyQuery makes it very easy to execute a GraphQL query at any given time.
+
+```js
+export const GET_SINGLE_EMPLOYEE = gql`
+  query ($id: ID!) {
+    employee(id: $id) {
+      id
+      name
+      joinYear
+      department {
+        id
+        deptName
+      }
+    }
+  }
+`;
+
+import { useLazyQuery } from "@apollo/client";
+
+const [
+  getSingleEmployee,
+  { data: dataSingleEmployee, error: errorSingleEmployee },
+] = useLazyQuery(GET_SINGLE_EMPLOYEE, {
+  fetchPolicy: "network-only",
+});
+```
